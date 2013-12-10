@@ -1,6 +1,5 @@
 #!/bin/sh
 
-/usr/local/bin/load.milo
 /usr/local/bin/acq1001_init_gpio
 /usr/local/bin/fmc-scan
 

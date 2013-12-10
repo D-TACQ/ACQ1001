@@ -4,7 +4,7 @@ mkdir -p /dev/gpio
 cd /sys/class/gpio
 
 export_gpio() {
-	echo export_gpio $1
+	#echo export_gpio $1
 	echo $1 > export
 }
 
@@ -22,7 +22,7 @@ setLO() {
 }
 
 setO() {
-	echo setO $1
+	#echo setO $1
 	echo out >$1/direction
 }
 setAL() {
@@ -78,7 +78,8 @@ let GPIO_MB2=$GPIO_MB1+23
 CHIP123=$(basename $(echo /sys/bus/i2c/devices/1-0023/gpio/gpiochip*))
 let GPIO_XX1=${CHIP123#gpiochip*}
 let GPIO_XX2=$GPIO_XX1+23
-let GPIO_XXO2=$GPIO_XX1+17
+let GPIO_XXO2=$GPIO_XX1+14
+
 
 for pin in $(seq $GPIO_MB1 $GPIO_MB2) $(seq $GPIO_XX1 $GPIO_XX2)
 do
@@ -95,49 +96,27 @@ done
 
 
 mkdir -p /dev/gpio/CLK/MB/RDW
-let gpio_mbx=$GPIO_MB1
-mkln $gpio_mbx CLK/MB/RDW/R6; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/RDW/R5; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/RDW/R4; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/RDW/R3; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/RDW/R2; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/RDW/R1; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/RDW/R0; let gpio_mbx=$gpio_mbx+1
+let MBX=$GPIO_MB1
+mkln gpio$MBX CLK/MB/RDW/R6; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/RDW/R5; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/RDW/R4; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/RDW/R3; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/RDW/R2; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/RDW/R1; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/RDW/R0; let MBX=$MBX+1
 
 mkdir /dev/gpio/CLK/MB/FDW
-mkln $gpio_mbx CLK/MB/FDW/F6; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/FDW/F5; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/FDW/F4; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/FDW/F3; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/FDW/F2; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/FDW/F1; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/FDW/F0; let gpio_mbx=$gpio_mbx+1
+mkln gpio$MBX CLK/MB/FDW/F6; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/FDW/F5; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/FDW/F4; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/FDW/F3; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/FDW/F2; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/FDW/F1; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/FDW/F0; let MBX=$MBX+1
 
 mkdir /dev/gpio/CLK/MB/ODW
-mkln $gpio_mbx CLK/MB/ODW/S1; let gpio_mbx=$gpio_mbx+1
-mkln $gpio_mbx CLK/MB/ODW/S0; let gpio_mbx=$gpio_mbx+1
-
-
-let gpio_xxx=$GPIO_XX1
-
-mkdir -p /dev/gpio/LED
-mkln $gpio_xxx LED/
-let site=1; while [ $site -le 6 ]; do
-	let gpio=248+$site-1
-	GPIO=gpio${gpio}
-	setAL $GPIO; mkln ${GPIO} fmc${site}_present
-	let site=$site+1
-done
-
-mkln gpio254 15VP_PGD 		AL
-mkln gpio255 15VN_PGD 		AL
-
-
-for pin in $(seq 224 231) $(seq 216 219)
-do
-	setO gpio${pin}
-done
-
+mkln gpio$MBX CLK/MB/ODW/S1; let MBX=$MBX+1
+mkln gpio$MBX CLK/MB/ODW/S0; let MBX=$MBX+1
 
 
 gpioXXX() {
@@ -161,12 +140,13 @@ mkln $(gpioXXX  9) CLK/OSC_X_OE 	AL
 mkln $(gpioXXX 10) CLK/OSC_X_CLK_OE	AL
 mkln $(gpioXXX 11) CLK/FP_CLK_OE 	AL
 mkln $(gpioXXX 12) CLK/FP_OE		AL
-mkln $(gpioXXX 13) Si570_OE
+mkln $(gpioXXX 13) 15VA_EN		AL
+mkln $(gpioXXX 14) Si570_OE
 
 mkln $(gpioXXX 16) fmc1_present		AL
 mkln $(gpioXXX 17) fmc2_present		AL
-mkln $(gpioXXX 18) celf_present		AL
-mkln $(gpioXXX 19) mcvt_present		AL
+mkln $(gpioXXX 18) celf_prsnt		AL
+mkln $(gpioXXX 19) mcvt_prsnt		AL
 mkln $(gpioXXX 20) BV_FMC
 mkln $(gpioXXX 21) BV2
 mkln $(gpioXXX 22) BV3
