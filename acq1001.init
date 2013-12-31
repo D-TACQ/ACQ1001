@@ -1,6 +1,5 @@
 #!/bin/sh
 
-/usr/local/bin/load.milo
 /usr/local/bin/acq1001_init_gpio
 FMC_SCAN_FPGA=ACQ1001 FMC_SCAN_SITES="1 2" /usr/local/bin/fmc-scan
 
