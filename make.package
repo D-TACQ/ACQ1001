@@ -4,15 +4,17 @@ DC=$(date +%y%m%d%H%M%S)
 SEQ=05
 MODEL=acq1001
 
+TOP=..
+
 rm -Rf opkg/*
 mkdir -p opkg/usr/local/bin opkg/usr/local/init opkg/usr/local/lib/modules
 
-cp ${MODEL}_init_gpio  opkg/usr/local/bin
-cp ../ACQ2006/SHARE/bin/* opkg/usr/local/bin
+cp ${TOP}/ACQ2006/SHARE/bin/* opkg/usr/local/bin
+cp ${MODEL}_init_gpio opkg/usr/local/bin
 cp ${MODEL}.map   opkg/usr/local/
 cp ${MODEL}.init opkg/usr/local/init
 
-cp -a ../UTILS/ob_calc_527 opkg/usr/local/bin
+cp -a ${TOP}/UTILS/ob_calc_527 opkg/usr/local/bin
 
 tar czf release/${SEQ}-${MODEL}-${DC}.tgz -C opkg .
 rm -Rf ../PACKAGES/${SEQ}-${MODEL}*
