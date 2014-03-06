@@ -126,7 +126,7 @@ mkln $(gpioXXX  4) LED/CLK_G 		AL
 mkln $(gpioXXX  5) LED/CLK_R 		AL
 
 mkln $(gpioXXX  6) CLK/SYNC_SET_OUT	
-mkln $(gpioXXX  7) CLK/SYNC_SET_IN	AL
+mkln $(gpioXXX  7) CLK/SYNC_SET_IN     
 mkln $(gpioXXX  8) CLK/MB/ICS_CLK2_OE
 mkln $(gpioXXX  9) CLK/OSC_X_OE 	AL
 mkln $(gpioXXX 10) CLK/OSC_X_CLK_OE	AL
@@ -144,6 +144,10 @@ mkln $(gpioXXX 21) BV2
 mkln $(gpioXXX 22) BV3
 mkln $(gpioXXX 23) BV4 
 
+echo HDMI sync setting /dev/gpio/CLK/SYNC_SET_IN as INPUT 0
+set.sys /dev/gpio/CLK/SYNC_SET_IN 0
+echo HDMI sync setting /dev/gpio/CLK/SYNC_SET_OUT as OUTPUT 1
+set.sys /dev/gpio/CLK/SYNC_SET_OUT 1
 
 	
 clear_leds() {	
