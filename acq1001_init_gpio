@@ -14,7 +14,7 @@ let GPIO_MB2=$GPIO_MB1+23
 CHIP123=$(basename $(echo /sys/bus/i2c/devices/1-0023/gpio/gpiochip*))
 let GPIO_XX1=${CHIP123#gpiochip*}
 let GPIO_XX2=$GPIO_XX1+23
-let GPIO_XXO2=$GPIO_XX1+14
+let GPIO_XXO2=$GPIO_XX1+15
 
 
 for pin in $(seq $GPIO_MB1 $GPIO_MB2) $(seq $GPIO_XX1 $GPIO_XX2)
