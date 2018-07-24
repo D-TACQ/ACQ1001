@@ -64,10 +64,10 @@ gpioXXX() {
 mkdir -p /dev/gpio/LED
 mkln $(gpioXXX  0) LED/FMC1_G 	AL
 mkln $(gpioXXX  1) LED/FMC1_R 	AL
-mkln $(gpioXXX  2) LED/TRG_G 		AL
-mkln $(gpioXXX  3) LED/TRG_R 		AL
-mkln $(gpioXXX  4) LED/CLK_G 		AL
-mkln $(gpioXXX  5) LED/CLK_R 		AL
+mkln $(gpioXXX  2) LED/CLK_G 		AL
+mkln $(gpioXXX  3) LED/CLK_R 		AL
+mkln $(gpioXXX  4) LED/TRG_G 		AL
+mkln $(gpioXXX  5) LED/TRG_R 		AL
 
 mkln $(gpioXXX  6) CLK/SYNC_SET_OUT	
 mkln $(gpioXXX  7) CLK/SYNC_SET_IN     
