@@ -7,11 +7,11 @@ common_begin
 
 # i2c gpio
 
-CHIP122=$(basename $(echo /sys/bus/i2c/devices/1-0022/gpio/gpiochip*))
+CHIP122=$(get_gpiochip 1 0022)
 let GPIO_MB1=${CHIP122#gpiochip*}
 let GPIO_MB2=$GPIO_MB1+23
 
-CHIP123=$(basename $(echo /sys/bus/i2c/devices/1-0023/gpio/gpiochip*))
+CHIP123=$(get_gpiochip 1 0023)
 let GPIO_XX1=${CHIP123#gpiochip*}
 let GPIO_XX2=$GPIO_XX1+23
 let GPIO_XXO2=$GPIO_XX1+15
